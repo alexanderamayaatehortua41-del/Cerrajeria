@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réplica La Casa de los Famosos - Animación Horizontal</title>
+    <style>
+        :root {
+            --purple-main: #581d8a;
+            --purple-name: #602a90;
+            --gray-border: #dcdcdc;
+            --pink-bg: #fdf1f8;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Encabezado */
+        .header {
+            text-align: center;
+            color: var(--purple-main);
+            max-width: 360px;
+            margin-bottom: 25px;
+        }
+
+        .header h2 {
+            font-size: 1.2rem;
+            margin: 0 0 8px 0;
+            line-height: 1.2;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Contenedor Principal */
+        .container {
+            width: 100%;
+            max-width: 380px;
+        }
+
+        /* Tarjeta de Participante */
+        .card {
+            position: relative;
+            background-color: var(--pink-bg);
+            border: 1.5px solid var(--gray-border);
+            border-radius: 14px;
+            height: 90px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Nombre del Participante */
+        .name {
+            position: absolute;
+            width: 100%;
+            color: var(--purple-name);
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Animación del Avatar: Derecha a Izquierda */
+        .avatar-animator {
+            position: absolute;
+            right: 8px; 
+            width: 75px;
+            height: 75px;
+            z-index: 2;
+            animation: moveToLeft 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: 0.5s;
+        }
+
+        .circle-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: white;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .circle-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Definición del Movimiento */
+        @keyframes moveToLeft {
+            from { 
+                right: 8px; 
+            }
+            to { 
+                /* Se detiene al borde final izquierdo */
+                right: calc(100% - 83px); 
+            }
+        }
+
+        /* Botón de Acción */
+        .btn-reload {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            background: var(--purple-main);
+            color: white;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-reload:active {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>Vota por tu participante favorito y EVITA que sea eliminado.</h2>
+        <p>Elige al participante, desliza hasta el final y haz clic en votar. Tienes hasta el <b>jueves 5 de junio</b>.</p>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <span class="name">Melissa Gate</span>
+            <div class="avatar-animator">
+                <div class="circle-frame">
+                    <img src="https://i.pravatar.cc/150?u=melissa" alt="Melissa">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="name">'La Toxi Costeña'</span>
+            <div class="avatar-animator">
+                <div class="circle-frame">
+                    <img src="https://i.pravatar.cc/150?u=toxi" alt="Toxi">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="name">La Jesuú</span>
+            <div class="avatar-animator">
+                <div class="circle-frame">
+                    <img src="https://i.pravatar.cc/150?u=jesuu" alt="Jesuú">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="name">Emiro Navarro</span>
+            <div class="avatar-animator">
+                <div class="circle-frame">
+                    <img src="https://i.pravatar.cc/150?u=emiro" alt="Emiro">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="name">Altafulla</span>
+            <div class="avatar-animator">
+                <div class="circle-frame">
+                    <img src="https://i.pravatar.cc/150?u=altafulla" alt="Altafulla">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-reload" onclick="location.reload()">🔄 Reiniciar Animación</button>
+
+</body>
+</html>
