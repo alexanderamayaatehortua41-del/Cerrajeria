@@ -1,192 +1,161 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Réplica La Casa de los Famosos - Animación Horizontal</title>
-    <style> 
-        :root {
-            --purple-main: #581d8a;
-            --purple-name: #602a90;
-            --gray-border: #dcdcdc;
-            --pink-bg: #fdf1f8; 
+    <title>Chatbot Cerrajería</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        body {
-            background-color: #ffffff;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            margin: 0;
+        .chat-container {
+            width: 100%;
+            max-width: 400px;
+            height: 550px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        /* Encabezado */
-        .header {
-            text-align: center;
-            color: var(--purple-main);
-            max-width: 360px;
-            margin-bottom: 25px;
-        }
-
-        .header h2 {
-            font-size: 1.2rem;
-            margin: 0 0 8px 0;
-            line-height: 1.2;
-        }
-
-        .header p {
-            font-size: 0.9rem;
-            margin: 0;
-            font-weight: 500;
-        }
-
-        /* Contenedor Principal */
-        .container {
-            width: 100%;
-            max-width: 380px;
-        }
-
-        /* Tarjeta de Participante */
-        .card {
-            position: relative;
-            background-color: var(--pink-bg);
-            border: 1.5px solid var(--gray-border);
-            border-radius: 14px;
-            height: 90px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
             overflow: hidden;
         }
 
-        /* Nombre del Participante */
-        .name {
-            position: absolute;
-            width: 100%;
-            color: var(--purple-name);
-            font-size: 1.4rem;
-            font-weight: bold;
-            text-align: center;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Animación del Avatar: Derecha a Izquierda */
-        .avatar-animator {
-            position: absolute;
-            right: 8px; 
-            width: 75px;
-            height: 75px;
-            z-index: 2;
-            animation: moveToLeft 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            animation-delay: 0.5s;
-        }
-
-        .circle-frame {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: white;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .circle-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Definición del Movimiento */
-        @keyframes moveToLeft {
-            from { 
-                right: 8px; 
-            }
-            to { 
-                /* Se detiene al borde final izquierdo */
-                right: calc(100% - 83px); 
-            }
-        }
-
-        /* Botón de Acción */
-        .btn-reload {
-            margin-top: 15px;
-            padding: 10px 20px;
-            border: none;
-            background: var(--purple-main);
+        .chat-header {
+            background: #34495e;
             color: white;
-            border-radius: 25px;
+            padding: 15px;
+            text-align: center;
             font-weight: bold;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: opacity 0.2s;
         }
 
-        .btn-reload:active {
-            opacity: 0.8;
+        .chat-box {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            background: #f1f0f0;
+            color: #333;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background: #3498db;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        #send-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            margin-left: 5px;
+            border-radius: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h2>Vota por tu participante favorito y EVITA que sea eliminado.</h2>
-        <p>Elige al participante, desliza hasta el final y haz clic en votar. Tienes hasta el <b>jueves 5 de junio</b>.</p>
-    </div>
-
-    <div class="container">
-        <div class="card">
-            <span class="name">Melissa Gate</span>
-            <div class="avatar-animator">
-                <div class="circle-frame">
-                    <img src="https://i.pravatar.cc/150?u=melissa" alt="Melissa">
-                </div>
-            </div>
+    <div class="chat-container">
+        <div class="chat-header">Asistente de Cerrajería</div>
+        <div id="chat-box" class="chat-box">
+            <div class="message bot-message">¡Hola! ¿Deseas saber el precio del cambio de clave?</div>
         </div>
-
-        <div class="card">
-            <span class="name">'La Toxi Costeña'</span>
-            <div class="avatar-animator">
-                <div class="circle-frame">
-                    <img src="https://i.pravatar.cc/150?u=toxi" alt="Toxi">
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <span class="name">La Jesuú</span>
-            <div class="avatar-animator">
-                <div class="circle-frame">
-                    <img src="https://i.pravatar.cc/150?u=jesuu" alt="Jesuú">
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <span class="name">Emiro Navarro</span>
-            <div class="avatar-animator">
-                <div class="circle-frame">
-                    <img src="https://i.pravatar.cc/150?u=emiro" alt="Emiro">
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <span class="name">Altafulla</span>
-            <div class="avatar-animator">
-                <div class="circle-frame">
-                    <img src="https://i.pravatar.cc/150?u=altafulla" alt="Altafulla">
-                </div>
-            </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Escribe aquí..." autocomplete="off">
+            <button id="send-btn">Enviar</button>
         </div>
     </div>
 
-    <button class="btn-reload" onclick="location.reload()">🔄 Reiniciar Animación</button>
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        function sendMessage() {
+            const text = userInput.value.trim();
+            if (text !== "") {
+                appendMessage(text, 'user-message');
+                userInput.value = "";
+
+                setTimeout(() => {
+                    const response = getBotResponse(text);
+                    appendMessage(response, 'bot-message');
+                }, 500);
+            }
+        }
+
+        function appendMessage(text, className) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', className);
+            messageDiv.innerText = text;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function getBotResponse(input) {
+            const query = input.toLowerCase();
+
+            // Lógica principal: pregunta inicial
+            if (query.includes("vale") || query.includes("cuánto") || query.includes("precio")) {
+                if (query.includes("cambio") || query.includes("clave")) {
+                    return "¿El cambio de clave está con tornillo o con soldadura?";
+                }
+            }
+
+            // Respuesta específica para TORNILLO
+            if (query.includes("tornillo")) {
+                return "Vale 45,000.";
+            }
+
+            // Respuesta específica para SOLDADURA
+            if (query.includes("soldadura")) {
+                return "Vale 60,000.";
+            }
+
+            return "Por favor, indícame si es con tornillo o soldadura para darte el precio.";
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
 
 </body>
 </html>
